@@ -1,3 +1,9 @@
+import { Keyboard } from './Keyboard';
+
 export const App = () => {
-  return <>Hello world!</>;
+  return (
+    <>
+      <Keyboard />
+    </>
+  );
 };
