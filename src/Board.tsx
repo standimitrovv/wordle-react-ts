@@ -99,7 +99,8 @@ export const Board: React.FunctionComponent<{
       }
       return prevBoard;
     });
-  }, [board, clicks, col, hasLost, hasWon, row, selectedLetter]);
+    // eslint-disable-next-line react-hooks/exhaustive-deps
+  }, [clicks]);
 
   return (
     <div className='px-10 py-5 grid gap-y-1 items-center w-100 justify-center'>
