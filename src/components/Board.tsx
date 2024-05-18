@@ -1,5 +1,5 @@
 import { useEffect, useState } from 'react';
-import { ALPHABET } from './App';
+import { Letters, createDefaultLetters } from '../Letters';
 import { Box } from './Box';
 
 // temporary solution
@@ -10,7 +10,7 @@ export const Board: React.FunctionComponent<{
   selectedLetter: string;
   clicks: number;
 }> = ({ selectedLetter, clicks }) => {
-  const [letters, setLetters] = useState<string[]>(() => initDefaultLetters());
+  const [letters, setLetters] = useState<Letters>(() => createDefaultLetters());
 
   const [board, setBoard] = useState<string[][][]>(() => initDefaultBoard());
   const [row, setRow] = useState<number>(0);
@@ -134,8 +134,4 @@ function initDefaultBoard(
   }
 
   return board;
-}
-
-function initDefaultLetters() {
-  return ALPHABET.split('').map(() => '');
 }

@@ -1,3 +1,6 @@
+import { useEffect, useState } from 'react';
+import { Letters, createDefaultLetters } from '../Letters';
+
 const KEYS = {
   line1: 'qwertyuiop',
   line2: 'asdfghjkl',
@@ -6,7 +9,14 @@ const KEYS = {
 
 export const Keyboard: React.FunctionComponent<{
   onClick: (letter: string) => void;
-}> = ({ onClick }) => {
+  hasChanged: boolean;
+  letters: Letters;
+}> = ({ onClick, hasChanged, letters: l }) => {
+  const [letters, setLetters] = useState<Letters>(() => createDefaultLetters());
+
+  // eslint-disable-next-line react-hooks/exhaustive-deps
+  useEffect(() => setLetters(l), [hasChanged]);
+
   return (
     <div className='flex flex-col items-center'>
       <div className='flex'>{renderKeysFromLine(KEYS.line1, onClick)}</div>
