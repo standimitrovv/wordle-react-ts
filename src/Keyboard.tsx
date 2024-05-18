@@ -19,7 +19,9 @@ export const Keyboard = () => {
 };
 
 const renderKeysFromLine = (line: string) =>
-  line.split('').map((key) => <Key value={key.toUpperCase()} />);
+  line
+    .split('')
+    .map((key, i) => <Key key={`${key}-${i}`} value={key.toUpperCase()} />);
 
 const Key: React.FunctionComponent<{ value: string }> = ({ value }) => {
   return (
