@@ -66,7 +66,7 @@ const Key: React.FunctionComponent<{
   const [style, setStyle] = useState('');
 
   useEffect(() => {
-    if (state === 'correct') {
+    if (state === 'correct spot') {
       setStyle('bg-green-500 text-white');
     }
 
