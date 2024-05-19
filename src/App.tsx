@@ -33,6 +33,11 @@ export const App = () => {
     setClicks((click) => click + 1);
   };
 
+  const onBoardChange = (ls: Letters) => {
+    setLetters(ls);
+    setHasChanged((prevState) => !prevState);
+  };
+
   useEffect(() => {
     window.addEventListener('keydown', handleKeydown);
     return () => window.removeEventListener('keydown', handleKeydown);
@@ -40,7 +45,11 @@ export const App = () => {
 
   return (
     <>
-      <Board clicks={clicks} selectedLetter={selectedLetter} />
+      <Board
+        clicks={clicks}
+        selectedLetter={selectedLetter}
+        onChange={onBoardChange}
+      />
       <Keyboard
         onClick={handleKeyboardClick}
         hasChanged={hasChanged}

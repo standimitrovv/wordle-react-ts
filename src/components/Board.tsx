@@ -9,7 +9,8 @@ const correctWord = possibleWords[0];
 export const Board: React.FunctionComponent<{
   selectedLetter: string;
   clicks: number;
-}> = ({ selectedLetter, clicks }) => {
+  onChange: (letters: Letters) => void;
+}> = ({ selectedLetter, clicks, onChange }) => {
   const [letters, setLetters] = useState<Letters>(() => createDefaultLetters());
 
   const [board, setBoard] = useState<string[][][]>(() => initDefaultBoard());
@@ -66,7 +67,7 @@ export const Board: React.FunctionComponent<{
 
             setLetters((prev) => {
               const letter = board[row][i][0];
-              prev[parseInt(letter)] = board[row][i][1];
+              prev[letter] = board[row][i][1];
               return prev;
             });
           }
@@ -96,6 +97,11 @@ export const Board: React.FunctionComponent<{
     });
     // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [clicks]);
+
+  useEffect(() => {
+    onChange(letters);
+    // eslint-disable-next-line react-hooks/exhaustive-deps
+  }, [hasBoardChanged]);
 
   return (
     <div className='px-10 py-5 grid gap-y-1 items-center w-100 justify-center'>
