@@ -10,13 +10,13 @@ export const Box: React.FunctionComponent<{
   useEffect(() => {
     setTimeout(() => {
       if (state === 'correct spot') {
-        setStyles('bg-correct text-white');
+        setStyles('bg-green-500 text-white');
       }
       if (state === 'wrong spot') {
-        setStyles('bg-exist text-white');
+        setStyles('bg-gray-500 text-white');
       }
       if (state === 'doesnt exist') {
-        setStyles('bg-wrong text-white dark:bg-gray-600');
+        setStyles('bg-red-500 text-white dark:bg-gray-600');
       }
     }, 125 * pos);
   }, [pos, state]);

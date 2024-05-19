@@ -43,7 +43,7 @@ export const Board: React.FunctionComponent<{
     }
 
     setBoard((prevBoard) => {
-      if (col < DEFAULT_COLS) {
+      if (col < MAX_COLS) {
         if (selectedLetter !== 'Enter') {
           prevBoard[row][col][0] = selectedLetter;
           setCol((c) => c + 1);
@@ -52,47 +52,42 @@ export const Board: React.FunctionComponent<{
         }
       } else {
         if (selectedLetter === 'Enter') {
-          let correctLetters = 0;
-          let word = '';
+          let correctLetters: number = 0;
 
-          for (let i = 0; i < DEFAULT_COLS; i++) {
-            word += prevBoard[row][i][0];
-          }
-
-          if (possibleWords.includes(word.toLowerCase())) {
-            for (let i = 0; i < DEFAULT_COLS; i++) {
-              if (correctWord[i] === prevBoard[row][i][0]) {
-                prevBoard[row][i][1] = 'correct spot';
-                correctLetters++;
-              } else if (correctWord.includes(prevBoard[row][i][0])) {
-                prevBoard[row][i][1] = 'wrong spot';
-              } else {
-                prevBoard[row][i][1] = 'doesnt exist';
-              }
-
-              setRow((r) => r + 1);
-              if (row === DEFAULT_ROWS) {
-                setHasLost(true);
-              }
-
-              setCol(0);
-
-              setLetters((prev) => {
-                const letter = board[row][i][0];
-                prev[parseInt(letter)] = board[row][i][1];
-                return prev;
-              });
+          for (let i = 0; i < MAX_COLS; i++) {
+            if (correctWord[i] === prevBoard[row][i][0]) {
+              prevBoard[row][i][1] = 'correct spot';
+              correctLetters++;
+            } else if (correctWord.includes(prevBoard[row][i][0])) {
+              prevBoard[row][i][1] = 'wrong spot';
+            } else {
+              prevBoard[row][i][1] = 'doesnt exist';
             }
 
-            setHasBoardChanged((prevState) => !prevState);
-
-            if (correctLetters === 5) {
-              setHasWon(true);
-            }
-            return prevBoard;
-          } else {
-            console.error('Word is not in the dictionary...');
+            setLetters((prev) => {
+              const letter = board[row][i][0];
+              prev[parseInt(letter)] = board[row][i][1];
+              return prev;
+            });
           }
+
+          setRow((r) => {
+            const nextRow = r + 1;
+            if (nextRow === MAX_ROWS) {
+              setHasLost(true);
+            }
+
+            return nextRow;
+          });
+
+          setCol(0);
+          setHasBoardChanged((prevState) => !prevState);
+
+          if (correctLetters === 5) {
+            setHasWon(true);
+          }
+
+          return prevBoard;
         } else {
           // TODO: notify the user he has to click enter in order to see something happen on his screen
         }
@@ -117,13 +112,10 @@ export const Board: React.FunctionComponent<{
   );
 };
 
-const DEFAULT_ROWS = 6;
-const DEFAULT_COLS = 5;
+const MAX_ROWS = 6;
+const MAX_COLS = 5;
 
-function initDefaultBoard(
-  rows: number = DEFAULT_ROWS,
-  cols: number = DEFAULT_COLS
-) {
+function initDefaultBoard(rows: number = MAX_ROWS, cols: number = MAX_COLS) {
   const board: string[][][] = [];
 
   for (let i = 0; i < rows; i++) {
