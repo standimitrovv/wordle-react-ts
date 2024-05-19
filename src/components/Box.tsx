@@ -13,10 +13,10 @@ export const Box: React.FunctionComponent<{
         setStyles('bg-green-500 text-white');
       }
       if (state === 'wrong spot') {
-        setStyles('bg-gray-500 text-white');
+        setStyles('bg-orange-400 text-white');
       }
       if (state === 'doesnt exist') {
-        setStyles('bg-red-500 text-white dark:bg-gray-600');
+        setStyles('bg-gray-500 text-white dark:bg-gray-600');
       }
     }, 125 * pos);
   }, [pos, state]);

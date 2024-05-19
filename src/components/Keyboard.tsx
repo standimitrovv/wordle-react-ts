@@ -66,17 +66,17 @@ const Key: React.FunctionComponent<{
   const [style, setStyle] = useState('');
 
   useEffect(() => {
-    if (state === 'correct spot') {
-      setStyle('bg-green-500 text-white');
-    }
-
-    if (state === 'wrong spot') {
-      setStyle('bg-gray-500 text-white');
-    }
-
-    if (state === 'doesnt exist') {
-      setStyle('bg-red-500 text-white dark:bg-gray-600');
-    }
+    setTimeout(() => {
+      if (state === 'correct spot') {
+        setStyle('bg-green-500 text-white');
+      }
+      if (state === 'wrong spot') {
+        setStyle('bg-orange-400 text-white');
+      }
+      if (state === 'doesnt exist') {
+        setStyle('bg-gray-500 text-white dark:bg-gray-600');
+      }
+    }, 300);
   }, [state]);
 
   return (
