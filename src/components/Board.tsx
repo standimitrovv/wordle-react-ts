@@ -1,10 +1,9 @@
 import { useEffect, useState } from 'react';
 import { Letters, createDefaultLetters } from '../Letters';
+import { wordsList } from '../Words';
 import { Box } from './Box';
 
-// temporary solution
-const possibleWords = ['wordl'];
-const correctWord = possibleWords[0];
+const correctWord = wordsList[Math.floor(Math.random() * wordsList.length)];
 
 export const Board: React.FunctionComponent<{
   selectedLetter: string;
