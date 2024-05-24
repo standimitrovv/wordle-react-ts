@@ -59,13 +59,15 @@ export const App = () => {
   });
 
   useEffect(() => {
-    if (gameResult?.result) {
+    const attempts = localStorage.getItem('attempts');
+    if (!attempts && gameResult?.result) {
       toast.success(
         'Wohoo! You finished your first wordle game! You can play again by refreshing the page!',
         {
           autoClose: false,
         }
       );
+      localStorage.setItem('attempts', '1');
     }
   }, [gameResult]);
 
