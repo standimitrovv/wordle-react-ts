@@ -36,14 +36,15 @@ export const Board: React.FunctionComponent<{
       return;
     }
 
+    if (col < MAX_COLS && selectedLetter === 'Enter') {
+      console.error('Words are 5 letters long!');
+      return;
+    }
+
     setBoard((prevBoard) => {
       if (col < MAX_COLS) {
-        if (selectedLetter !== 'Enter') {
-          prevBoard[row][col][0] = selectedLetter;
-          setCol((c) => c + 1);
-        } else {
-          console.error('Words are 5 letters long!');
-        }
+        prevBoard[row][col][0] = selectedLetter;
+        setCol((c) => c + 1);
       } else {
         if (selectedLetter === 'Enter') {
           let correctLetters: number = 0;
@@ -88,8 +89,6 @@ export const Board: React.FunctionComponent<{
               message: 'Congratulations! You won! 🎉',
             });
           }
-
-          return prevBoard;
         } else {
           // TODO: notify the user he has to click enter in order to see something happen on his screen
         }
@@ -97,7 +96,7 @@ export const Board: React.FunctionComponent<{
       return prevBoard;
     });
     // eslint-disable-next-line react-hooks/exhaustive-deps
-  }, [clicks]);
+  }, [selectedLetter, clicks]);
 
   useEffect(() => {
     onChange(letters);
