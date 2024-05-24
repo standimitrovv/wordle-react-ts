@@ -24,6 +24,8 @@ export const App = () => {
     undefined
   );
 
+  const attempts = localStorage.getItem('attempts');
+
   const handleKeydown = (e: KeyboardEvent) => {
     if (ALPHABET.includes(e.key.toLowerCase())) {
       setSelectedLetter(e.key.toUpperCase());
@@ -59,7 +61,6 @@ export const App = () => {
   });
 
   useEffect(() => {
-    const attempts = localStorage.getItem('attempts');
     if (!attempts && gameResult?.result) {
       toast.success(
         'Wohoo! You finished your first wordle game! You can play again by refreshing the page!',
@@ -69,6 +70,7 @@ export const App = () => {
       );
       localStorage.setItem('attempts', '1');
     }
+    // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [gameResult]);
 
   return (
