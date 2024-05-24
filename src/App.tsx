@@ -4,6 +4,11 @@ import { Letters } from './Letters';
 import { Board } from './components/Board';
 import { Keyboard } from './components/Keyboard';
 
+export interface GameResult {
+  result: 'win' | 'lose';
+  message: string;
+}
+
 export const App = () => {
   const [selectedLetter, setSelectedLetter] = useState<string>('');
 
@@ -12,6 +17,10 @@ export const App = () => {
   const [clicks, setClicks] = useState<number>(0);
 
   const [hasChanged, setHasChanged] = useState<boolean>(false);
+
+  const [gameResult, setGameResult] = useState<GameResult | undefined>(
+    undefined
+  );
 
   const handleKeydown = (e: KeyboardEvent) => {
     if (ALPHABET.includes(e.key.toLowerCase())) {
@@ -38,6 +47,10 @@ export const App = () => {
     setHasChanged((prevState) => !prevState);
   };
 
+  const handleGameEnd = (result: GameResult) => {
+    setGameResult(result);
+  };
+
   useEffect(() => {
     window.addEventListener('keydown', handleKeydown);
     return () => window.removeEventListener('keydown', handleKeydown);
@@ -45,16 +58,25 @@ export const App = () => {
 
   return (
     <>
-      <Board
-        clicks={clicks}
-        selectedLetter={selectedLetter}
-        onChange={onBoardChange}
-      />
-      <Keyboard
-        onClick={handleKeyboardClick}
-        hasChanged={hasChanged}
-        letters={letters}
-      />
+      {gameResult ? (
+        <div className='text-3xl flex justify-center items-center h-screen overflow-hidden'>
+          <span>{gameResult.message}</span>
+        </div>
+      ) : (
+        <>
+          <Board
+            clicks={clicks}
+            selectedLetter={selectedLetter}
+            onChange={onBoardChange}
+            onGameEnd={handleGameEnd}
+          />
+          <Keyboard
+            onClick={handleKeyboardClick}
+            hasChanged={hasChanged}
+            letters={letters}
+          />
+        </>
+      )}
     </>
   );
 };

@@ -1,4 +1,5 @@
 import { useEffect, useState } from 'react';
+import { GameResult } from '../App';
 import { Letters, createDefaultLetters } from '../Letters';
 import { wordsList } from '../Words';
 import { Box } from './Box';
@@ -9,24 +10,17 @@ export const Board: React.FunctionComponent<{
   selectedLetter: string;
   clicks: number;
   onChange: (letters: Letters) => void;
-}> = ({ selectedLetter, clicks, onChange }) => {
+  onGameEnd: (result: GameResult) => void;
+}> = ({ selectedLetter, clicks, onChange, onGameEnd }) => {
   const [letters, setLetters] = useState<Letters>(() => createDefaultLetters());
 
   const [board, setBoard] = useState<string[][][]>(() => initDefaultBoard());
   const [row, setRow] = useState<number>(0);
   const [col, setCol] = useState<number>(0);
 
-  const [hasWon, setHasWon] = useState<boolean>(false);
-  const [hasLost, setHasLost] = useState<boolean>(false);
   const [hasBoardChanged, setHasBoardChanged] = useState<boolean>(false);
 
   useEffect(() => {
-    if (hasWon || hasLost) {
-      // TODO: display a snackbar on the screen
-      console.log('Game ended!');
-      return;
-    }
-
     if (clicks === 0) {
       return;
     }
@@ -71,20 +65,28 @@ export const Board: React.FunctionComponent<{
             });
           }
 
+          let nr = row;
           setRow((r) => {
             const nextRow = r + 1;
-            if (nextRow === MAX_ROWS) {
-              setHasLost(true);
-            }
-
+            nr = nextRow;
             return nextRow;
           });
+
+          if (nr === MAX_ROWS) {
+            onGameEnd({
+              result: 'lose',
+              message: `Better luck next time... The word was: "${correctWord}"`,
+            });
+          }
 
           setCol(0);
           setHasBoardChanged((prevState) => !prevState);
 
           if (correctLetters === 5) {
-            setHasWon(true);
+            onGameEnd({
+              result: 'win',
+              message: 'Congratulations! You won! 🎉',
+            });
           }
 
           return prevBoard;
