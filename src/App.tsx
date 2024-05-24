@@ -1,4 +1,6 @@
 import { useEffect, useState } from 'react';
+import { ToastContainer, toast } from 'react-toastify';
+import 'react-toastify/dist/ReactToastify.css';
 import { ALPHABET } from './Alphabet';
 import { Letters } from './Letters';
 import { Board } from './components/Board';
@@ -56,6 +58,14 @@ export const App = () => {
     return () => window.removeEventListener('keydown', handleKeydown);
   });
 
+  useEffect(() => {
+    if (gameResult?.result) {
+      toast.success(
+        'Wohoo! You finished your first wordle game! You can play again by refreshing the page!'
+      );
+    }
+  }, [gameResult]);
+
   return (
     <>
       {gameResult ? (
@@ -77,6 +87,15 @@ export const App = () => {
           />
         </>
       )}
+
+      <ToastContainer
+        autoClose={3500}
+        position='bottom-left'
+        hideProgressBar
+        newestOnTop
+        pauseOnHover
+        theme='dark'
+      />
     </>
   );
 };

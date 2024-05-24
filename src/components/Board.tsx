@@ -1,4 +1,5 @@
 import { useEffect, useState } from 'react';
+import { toast } from 'react-toastify';
 import { GameResult } from '../App';
 import { Letters, createDefaultLetters } from '../Letters';
 import { wordsList } from '../Words';
@@ -37,7 +38,7 @@ export const Board: React.FunctionComponent<{
     }
 
     if (col < MAX_COLS && selectedLetter === 'Enter') {
-      console.error('Words are 5 letters long!');
+      toast.warn('Words are 5 letters long!');
       return;
     }
 
@@ -90,7 +91,7 @@ export const Board: React.FunctionComponent<{
             });
           }
         } else {
-          // TODO: notify the user he has to click enter in order to see something happen on his screen
+          toast.warn('You have to click "Enter" to see the result!');
         }
       }
       return prevBoard;
