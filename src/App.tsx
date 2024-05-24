@@ -28,7 +28,7 @@ export const App = () => {
 
   const handleKeydown = (e: KeyboardEvent) => {
     if (ALPHABET.includes(e.key.toLowerCase())) {
-      setSelectedLetter(e.key.toUpperCase());
+      setSelectedLetter(e.key);
       setClicks((click) => click + 1);
     }
     if (e.key === 'Enter') {
