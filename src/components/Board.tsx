@@ -26,6 +26,20 @@ export const Board: React.FunctionComponent<{
       return;
     }
 
+    if (col === 0 && selectedLetter === 'DELETE') {
+      return;
+    }
+
+    if (col < MAX_COLS && selectedLetter === 'Enter') {
+      toast.warn('Words are 5 letters long!');
+      return;
+    }
+
+    if (col === MAX_COLS && selectedLetter !== 'Enter') {
+      toast.warn('You have to click "Enter" to see the result!');
+      return;
+    }
+
     if (selectedLetter === 'DELETE') {
       setCol((prevCol) => (prevCol === 0 ? 0 : prevCol - 1));
 
@@ -37,16 +51,11 @@ export const Board: React.FunctionComponent<{
       return;
     }
 
-    if (col < MAX_COLS && selectedLetter === 'Enter') {
-      toast.warn('Words are 5 letters long!');
-      return;
-    }
-
     setBoard((prevBoard) => {
       if (col < MAX_COLS) {
         prevBoard[row][col][0] = selectedLetter;
         setCol((c) => c + 1);
-      } else {
+      } else if (col === MAX_COLS) {
         if (selectedLetter === 'Enter') {
           let correctLetters: number = 0;
 
@@ -90,8 +99,6 @@ export const Board: React.FunctionComponent<{
               message: 'Congratulations! You won! 🎉',
             });
           }
-        } else {
-          toast.warn('You have to click "Enter" to see the result!');
         }
       }
       return prevBoard;
