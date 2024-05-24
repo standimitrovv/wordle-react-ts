@@ -46,7 +46,7 @@ export const GameRulesModal: React.FunctionComponent<{
               to show you how close your guess was to the correct word.
             </p>
           </div>
-          <div className='p-4 md:p-5 text-black text-2xl'>
+          <div className='p-4 md:p-5 text-black text-2xl font-semibold'>
             <p>Examples:</p>
           </div>
           <div className='flex items-center justify-end p-4 md:p-5 border-t border-gray-200 rounded-b dark:border-gray-600'>
