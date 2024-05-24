@@ -61,7 +61,10 @@ export const App = () => {
   useEffect(() => {
     if (gameResult?.result) {
       toast.success(
-        'Wohoo! You finished your first wordle game! You can play again by refreshing the page!'
+        'Wohoo! You finished your first wordle game! You can play again by refreshing the page!',
+        {
+          autoClose: false,
+        }
       );
     }
   }, [gameResult]);
