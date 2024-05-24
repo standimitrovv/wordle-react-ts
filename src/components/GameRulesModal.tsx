@@ -1,4 +1,6 @@
-export const GameRulesModal = () => {
+export const GameRulesModal: React.FunctionComponent<{
+  onClose: () => void;
+}> = ({ onClose }) => {
   return (
     <div
       id='default-modal'
@@ -16,6 +18,7 @@ export const GameRulesModal = () => {
               type='button'
               className='text-gray-400 bg-transparent hover:bg-gray-200 hover:text-gray-900 rounded-lg text-sm w-8 h-8 ms-auto inline-flex justify-center items-center dark:hover:bg-gray-600 dark:hover:text-white'
               data-modal-hide='default-modal'
+              onClick={onClose}
             >
               <svg
                 className='w-3 h-3'
@@ -51,6 +54,7 @@ export const GameRulesModal = () => {
               data-modal-hide='default-modal'
               type='button'
               className='text-white bg-blue-700 hover:bg-blue-800 focus:ring-4 focus:outline-none focus:ring-blue-300 font-medium rounded-lg px-5 py-2.5 text-center dark:bg-blue-600 dark:hover:bg-blue-700 dark:focus:ring-blue-800'
+              onClick={onClose}
             >
               Got it!
             </button>
