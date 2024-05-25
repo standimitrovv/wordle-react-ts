@@ -24,7 +24,7 @@ export const App = () => {
   const [hasChanged, setHasChanged] = useState<boolean>(false);
 
   const [isGameRulesModalOpen, setIsGameRulesModalOpen] = useState<boolean>(
-    !!attempts
+    !attempts ? true : false
   );
 
   const [gameResult, setGameResult] = useState<GameResult | undefined>(
