@@ -1,3 +1,7 @@
+import charCorrectSpot from '../assets/correct-spot.jpg';
+import charNotInWord from '../assets/doesnt-exist.jpg';
+import charInWord from '../assets/in-word.jpg';
+
 export const GameRulesModal: React.FunctionComponent<{
   onClose: () => void;
 }> = ({ onClose }) => {
@@ -48,6 +52,33 @@ export const GameRulesModal: React.FunctionComponent<{
           </div>
           <div className='p-4 md:p-5 text-black text-2xl font-semibold'>
             <p>Examples:</p>
+
+            <div className='mb-4'>
+              <img
+                src={charCorrectSpot}
+                alt='Character is in the correct spot'
+              />
+              <p>
+                1. <b>Q</b> is in the word and in the correct spot
+              </p>
+            </div>
+
+            <div className='mb-4'>
+              <img
+                src={charInWord}
+                alt='Character is in the word but in the wrong spot'
+              />
+              <p>
+                2. <b>W</b> is in the word but in the wrong spot
+              </p>
+            </div>
+
+            <div>
+              <img src={charNotInWord} alt='Character is not in the word' />
+              <p>
+                3. <b>E</b> is not in the word
+              </p>
+            </div>
           </div>
           <div className='flex items-center justify-end p-4 md:p-5 border-t border-gray-200 rounded-b dark:border-gray-600'>
             <button
